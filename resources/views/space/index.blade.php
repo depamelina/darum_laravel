@@ -28,19 +28,21 @@
             </ol>
       </div>
           
-      
           <div class="row justify-content-center">
-              <div class="col-md-10">
+              <div class="col-md-12">
                   <div class="card mb-5">
                       <div class="card-body">
-                          <a href="{{ route('space.create') }}" class="btn btn-outline-primary btn-sm float-end mb-2">Tambah Data</a>
+                          <a href="{{ route('space.create') }}" class="btn btn-outline-primary float-end mb-2 mr-2"><i class="fas fa-plus mr-1"></i> Tambah</a>
+                          <a href="/exportexcel/" class="btn btn-outline-success float-end mb-2 mr-5 pr-4"><i class="fas fa-print mr-1"></i> Excel</a>
+                                       
                           <table class="table align-items-center table-flush table-hover" id="dataSpaces">
                               <thead class="thead-light">
                                   <tr>
                                       <th>No.</th>
                                       <th>Nama Perumahan</th>
                                       <th>Alamat</th>
-                                      <th>Action</th>
+                                      <th>Titik Koordinat</th>
+                                      <th>Aksi</th>
                                   </tr>
                               <tbody></tbody>
                               </thead>
@@ -94,6 +96,9 @@
                     },
                     {
                         data: 'content'
+                    },
+                    {
+                        data: 'location'
                     },
                     {
                         data: 'action'

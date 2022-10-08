@@ -73,7 +73,7 @@
                     <label for="select2Single">Lokasi</label>
                     <select class="select2-single form-control form-control-sm" name="lokasi" id="select2Single">
                       @foreach ($city as $c)
-                        <option value="{{ $c->id }}">{{ $c->city_name }}</option>
+                        <option value="{{ $c->id }}" {{ $c->id == $space->id_city ? 'selected' : ''}} >{{ $c->city_name }}</option>
                       @endforeach
                     </select>
                   </div>

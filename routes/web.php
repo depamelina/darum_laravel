@@ -45,7 +45,7 @@ Route::get('/space/destroy/{id}',[App\Http\Controllers\SpaceController::class,'d
 
 Route::get('/map/{slug}',[App\Http\Controllers\MapController::class,'show'])->name('map.show');
 
-Route::resource('centre-point',(CentrePointController::class));
+Route::resource('centre-point',(CentrePointController::class))->middleware('auth');
 Route::resource('spaces',(SpaceController::class));
 
 Route::get('/centrepoint/data',[DataController::class,'centrepoint'])->name('centre-point.data');

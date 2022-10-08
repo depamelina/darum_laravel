@@ -1,6 +1,6 @@
 {{-- pada view action terdapat 2 button edit data dan hapus data --}}
-<a href="{{ route('centre-point.edit',$model) }}" class="btn btn-info btn-sm">Edit</a>
-<button href="{{ route('centre-point.destroy',$model) }}" class="btn btn-danger btn-sm" id="delete">Hapus</button>
+<a href="{{ route('centre-point.edit',$model) }}" class="btn btn-info btn-sm"><i class="fas fa-pen mr-1"></i>Edit</a>
+<button href="{{ route('centre-point.destroy',$model) }}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash mr-1"></i>Hapus</button>
 
 {{-- pada view action kita meload cdn sweetalert 2 untuk menampilkan alert dialog dari sweet alert2 --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

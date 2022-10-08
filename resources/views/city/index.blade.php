@@ -48,7 +48,7 @@
                 </div>
                 <div class="ml-4">
                   <button type="button" class="btn btn-outline-danger btn-sm mb-1" data-toggle="modal" data-target="#exampleModalCenter"
-                  id="#modalCenter">Tambah</button>
+                  id="#modalCenter"><i class="fas fa-plus mr-1"></i>Tambah</button>
                 </div>
                
                 <div class="table-responsive p-3">
@@ -57,7 +57,7 @@
                       <tr class="text-center">
                         <th>No</th>
                         <th>Nama Kota/Kabupaten</th>
-                        <th>Action</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>

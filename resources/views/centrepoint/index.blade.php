@@ -33,14 +33,14 @@
                     <div class="card">
                         <div class="card-header"></div>
                         <div class="card-body">
-                            <a href="{{ route('centre-point.create') }}" class="btn btn-outline-primary btn-sm float-end mb-2">Tambah Data</a>
+                            <a href="{{ route('centre-point.create') }}" class="btn btn-outline-primary btn-sm float-end mb-2"><i class="fas fa-plus mr-1"></i> Tambah</a>
 
                             <table class="table" id="dataCentrePoint">
-                                <thead>
+                                <thead class="thead-light">
                                     <tr>
                                         <th>No.</th>
                                         <th>Titik Koordinat</th>
-                                        <th>Opsi</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 <tbody></tbody>
                                 </thead>

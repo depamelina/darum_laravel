@@ -1,5 +1,15 @@
-<a href="{{ route('space.edit', $id) }}" class="btn btn-info btn-sm">Edit</a>
-<button href="{{ route('space.destroy',$model) }}" class="btn btn-danger btn-sm" id="delete">Hapus</button>
+
+<?php
+use App\Models\Space;
+$spaces = Space::get();
+?>
+<a href="{{ route('space.edit', $id) }}" class="btn btn-info btn-sm"><i class="fas fa-pen mr-1 pl-1"></i></a>
+
+<!-- @foreach ($spaces as $item)@endforeach
+<a href="{{ route('map.show', $item->slug) }}" class="btn btn-warning btn-sm"><i class="fas fa-eye mr-1 pl-1"></i></a> -->
+
+
+<button href="{{ route('space.destroy',$model) }}" class="btn btn-danger btn-sm" id="delete"><i class="fas fa-trash mr-1 pl-1"></i></button>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -10,14 +20,14 @@
         e.preventDefault();
         var href = $(this).attr('href');
             Swal.fire({
-            title: 'Hapus Data Ini?',
-            text: "Perhatian data yang sudah di hapus tidak bisa di kembalikan!",
-            icon: 'warning',
+            title: 'Yakin?',
+            text: "Apakah yakin akan menghapus data ini?",
+            icon: 'question',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, Hapus!',
-            cancelButtonText : 'Batal!'
+            confirmButtonColor:'#d33',
+            cancelButtonColor: '#A9A9A9',
+            confirmButtonText: 'Hapus',
+            cancelButtonText : 'Batal'
             }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById('deleteForm').action = href;

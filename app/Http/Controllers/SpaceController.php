@@ -22,13 +22,14 @@ class SpaceController extends Controller
     public function index()
     {
         // Menampilkan data dari tabel space
+        $spaces = Space::get();
         return view('space.index');
     }
 
     public function print()
     {
-        // Menampilkan data dari tabel space
-        return view('space.print');
+        $city = City::all();
+        return view('space.print',compact('city'));
     }
 
     /**
@@ -66,9 +67,20 @@ class SpaceController extends Controller
         // melakukan pengecekan ketika ada file gambar yang akan di input
         $spaces = new Space;
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $imageName = time() . '_' . $file->getClientOriginalName();
-            $file->move('uploads/imgCover/', $imageName);
+
+                $imageName = time().'.'.$request->image->extension(); 
+                $image = $request->file('image');
+                $destinationPathThumbnail = public_path('uploads/imgCover/');
+                $img = \Image::make($image->path());
+                $img->resize(100, 100, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPathThumbnail.'/'.$imageName);
+                
+                $data['image'] = $imageName;
+
+            // $file = $request->file('image');
+            // $imageName = time() . '_' . $file->getClientOriginalName();
+            // $file->move('uploads/imgCover/', $imageName);
         }
 
         // Memasukkan nilai untuk masing-masing field pada tabel space berdasarkan inputan dari
@@ -133,6 +145,33 @@ class SpaceController extends Controller
 
     public function update(Request $request, $id){
         $space = Space::find($id);
+
+            if ($request->hasFile('image')) {
+                if (File::exists('uploads/imgCover/' . $space->image)) {
+                    File::delete('uploads/imgCover/' . $space->image);
+                }
+                $file = $request->file('image');
+                $space->image = time() . '_' . $file->getClientOriginalName();
+                $destinationPathThumbnail = public_path('uploads/imgCover/');
+                $img = \Image::make($file->path());
+                $img->resize(100, 100, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPathThumbnail.'/'.$space->image);               
+              
+                // $file->move('uploads/imgCover/', $space->image);
+                $request['image'] = $space->image;
+
+                // $space->image = time().'.'.$request->image->extension(); 
+                // $image = $request->file('image');
+                // $destinationPathThumbnail = public_path('uploads/imgCover/');
+                // $img = \Image::make($image->path());
+                // $img->resize(100, 100, function ($constraint) {
+                //     $constraint->aspectRatio();
+                // })->save($destinationPathThumbnail.'/'.$imageName);
+                
+                // $data['image'] = $imageName;
+            }
+    
         $space->update([
                     'name' => $request->name,
                     'location' => $request->location,
@@ -141,46 +180,6 @@ class SpaceController extends Controller
                 ]);
         return redirect()->route('space.index')->with('success', 'Data Berhasil Diupdate');
     }
-    // public function update(Request $request, Space $id)
-    // {
-    //     // Menjalankan validasi
-    //     $this->validate($request, [
-    //         'name' => 'required',
-    //         'content' => 'required',
-    //         'image' => 'image|mimes:png,jpg,jpeg',
-    //         'location' => 'required'
-    //     ]);
-
-    //     // Jika data yang akan diganti ada pada tabel space
-    //     // cek terlebih dahulu apakah akan mengganti gambar atau tidak
-    //     // jika gambar diganti hapus terlebuh dahulu gambar lama
-        
-    //     $space = Space::find($id);
-    //     if ($request->hasFile('image')) {
-    //         if (File::exists('uploads/imgCover/' . $space->image)) {
-    //             File::delete('uploads/imgCover/' . $space->image);
-    //         }
-    //         $file = $request->file('image');
-    //         $space->image = time() . '_' . $file->getClientOriginalName();
-    //         $file->move('uploads/imgCover/', $space->image);
-    //         $request['image'] = $space->image;
-    //     }
-
-    //     // Lakukan Proses update data ke tabel space
-    //     $space->update([
-    //         'name' => $request->name,
-    //         'location' => $request->location,
-    //         'content' => $request->content,
-    //         'slug' => Str::slug($request->name, '-'),
-    //     ]);
-       
-    //     // redirect ke halaman index space
-    //     if ($space) {
-    //         return redirect()->route('space.index')->with('success', 'Data berhasil diupdate');
-    //     } else {
-    //         return redirect()->route('space.index')->with('error', 'Data gagal diupdate');
-    //     }
-    // }
 
     /**
      * Remove the specified resource from storage.
